@@ -22,7 +22,7 @@ Once compiled, move the new resources.mc to the /web folder.
 
 ### Play the Preview
 
-Test Here:
+Test Here: https://saiyansjunkyard01.github.io/Minecraft-Old-School-RD-Preview/web
 
 ### Contributers
 
