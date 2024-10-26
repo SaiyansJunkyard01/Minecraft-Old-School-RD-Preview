@@ -1,14 +1,10 @@
-# ![minecraft_title (7)](https://github.com/user-attachments/assets/ff38267b-d390-4dcc-abbf-3b1808156bfd)
+# ![minecraft_title (9)](https://github.com/user-attachments/assets/daabf7b1-9912-4f2d-93c3-cc7219e74b57)
 
-A remake of my first project, Minecraft Old-School, now on Eaglercraft Beta 1.7.3!
+### Warning! This project is DEFENTELY not Chromebook Friendly!
 
-### Warning! This project is not Chromebook-friendly!
-
-Unless you put your video settings on low and fast, then it would chrombook-friendly. What I mean by that is that Peyton's Eaglercraft Beta 1.7.3 is really laggy on chromebooks. This is because its single-threaded, and not like newer versions which use web workers to load chunks and more. I recommend using medium to high end computers to play.
+This is for bug testing and impelmenting new ideas, so don't use this version to play! (Unless you like losing progress)
 
 ### Compiling
-
-Ok, finally figured out how to compile it. Here are the steps:
 
 For app.js:
 - Create Codespace or import project as a gradle project
@@ -24,9 +20,9 @@ For resources.mc:
 
 Once compiled, move the new resources.mc to the /web folder.
 
-### Play a Demo!
+### Play the Preview
 
-You heard right! You can actually PLAY the project now unlike the original Old-School. Updated Textures arent there because its a demo, you don't get the full thing unless you do it yourself! (or you could just download the resources folder and just put it in the texture-pack menu) Play here: https://saiyangonzalez01.github.io/Minecraft-Old-School-ReDefault/web
+Test Here:
 
 ### Contributers
 
