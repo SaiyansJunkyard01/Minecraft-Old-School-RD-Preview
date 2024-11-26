@@ -1,20 +1,20 @@
 package net.lax1dude.eaglercraft;
 
-import net.lax1dude.eaglercraft.EaglerProfile.EaglerProfileSkin;
+import net.PeytonPlayz585.input.Keyboard;
+import net.PeytonPlayz585.input.Mouse;
+import net.PeytonPlayz585.opengl.GL11;
+import net.PeytonPlayz585.profile.Profile;
+import net.PeytonPlayz585.textures.TextureLocation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.GuiScreen;
-import net.minecraft.src.GuiTextField;
 import net.minecraft.src.ModelBiped;
-import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.RenderHelper;
-import net.minecraft.src.Session;
 import net.minecraft.src.StringTranslate;
 
 public class GuiScreenEditProfile extends GuiScreen {
 	
 	private GuiScreen parent;
-	private GuiTextField username;
 	
 	private boolean dropDownOpen = false;
 	private String[] dropDownOptions;
@@ -74,33 +74,15 @@ public class GuiScreenEditProfile extends GuiScreen {
 	
 	public GuiScreenEditProfile(GuiScreen parent) {
 		this.parent = parent;
-		reconcatDD();
+		this.dropDownOptions = defaultOptions;
 	}
 	
-	private void reconcatDD() {
-		String[] n = new String[EaglerProfile.skins.size()];
-		for(int i = 0; i < n.length; ++i) {
-			n[i] = EaglerProfile.skins.get(i).name;
-		}
-		
-		this.dropDownOptions = EaglerProfile.concatArrays(n, defaultOptions);
-	}
-	
-	private GuiButton button0, button1, button2, button10, button11, button12;
-
 	public void initGui() {
 		super.initGui();
-		EaglerAdapter.enableRepeatEvents(true);
+		Keyboard.enableRepeatEvents(true);
 		StringTranslate var1 = StringTranslate.getInstance();
-		this.screenTitle = var1.translateKey("profile.title");
-		this.username = new GuiTextField(this.fontRenderer, this.width / 2 - 20 + 1, this.height / 6 + 24 + 1, 138, 20, EaglerProfile.username);
-		this.username.field_22081_b = true;
-		selectedSlot = EaglerProfile.presetSkinId == -1 ? EaglerProfile.customSkinId : (EaglerProfile.presetSkinId + EaglerProfile.skins.size());
-		//this.buttonList.add(new GuiButton(0, this.width / 2 - 100, 140, "eeeee"));
-		this.controlList.add(button0 = new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168, var1.translateKey("gui.done")));
-		this.controlList.add(button1 = new GuiButton(2, this.width / 2 - 21, this.height / 6 + 110, 71, 20, var1.translateKey("profile.addSkin")));
-		this.controlList.add(button2 = new GuiButton(3, this.width / 2 - 21 + 71, this.height / 6 + 110, 72, 20, var1.translateKey("profile.clearSkin")));
-		//this.buttonList.add(new GuiButton(200, this.width / 2, this.height / 6 + 72, 150, 20, var1.translateKey("gui.done")));
+		selectedSlot = (Profile.presetSkinId + Profile.skins.size());
+		this.controlList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168, var1.translateKey("gui.done")));
 	}
 	
 	private static ModelBiped playerModel = null;
@@ -109,8 +91,7 @@ public class GuiScreenEditProfile extends GuiScreen {
 		StringTranslate var1 = StringTranslate.getInstance();
 		this.drawDefaultBackground();
 		this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 15, 16777215);
-		this.drawString(this.fontRenderer, var1.translateKey("profile.screenname"), this.width / 2 - 20, this.height / 6 + 8, 10526880);
-		this.drawString(this.fontRenderer, var1.translateKey("profile.playerSkin"), this.width / 2 - 20, this.height / 6 + 66, 10526880);
+		this.drawString(this.fontRenderer, var1.translateKey("Select Skin"), this.width / 2 - 20, this.height / 6 + 40, 10526880);
 		
 		mousex = mx;
 		mousey = my;
@@ -123,7 +104,6 @@ public class GuiScreenEditProfile extends GuiScreen {
 		drawRect(skinX, skinY, skinX + skinWidth, skinY + skinHeight, -6250336);
 		drawRect(skinX + 1, skinY + 1, skinX + skinWidth - 1, skinY + skinHeight - 1, 0xff000015);
 		
-		this.username.drawTextBox();
 		if(dropDownOpen) {
 			super.drawScreen(0, 0, par3);
 		}else {
@@ -131,7 +111,7 @@ public class GuiScreenEditProfile extends GuiScreen {
 		}
 		
 		skinX = this.width / 2 - 20;
-		skinY = this.height / 6 + 82;
+		skinY = this.height / 6 + 60;
 		skinWidth = 140;
 		skinHeight = 22;
 		
@@ -139,14 +119,14 @@ public class GuiScreenEditProfile extends GuiScreen {
 		drawRect(skinX + 1, skinY + 1, skinX + skinWidth - 21, skinY + skinHeight - 1, -16777216);
 		drawRect(skinX + skinWidth - 20, skinY + 1, skinX + skinWidth - 1, skinY + skinHeight - 1, -16777216);
 		
-		EaglerAdapter.glColor4f(1f, 1f, 1f, 1f);
+		GL11.glColor4f(1f, 1f, 1f, 1f);
 		gui.bindTexture();
 		drawTexturedModalRect(skinX + skinWidth - 18, skinY + 3, 0, 240, 16, 16);
 		
 		this.fontRenderer.drawStringWithShadow(dropDownOptions[selectedSlot], skinX + 5, skinY + 7, 14737632);
 
 		skinX = this.width / 2 - 20;
-		skinY = this.height / 6 + 103;
+		skinY = this.height / 6 + 83;
 		skinWidth = 140;
 		skinHeight = (this.height - skinY - 10);
 		slotsVisible = (skinHeight / 10);
@@ -187,46 +167,45 @@ public class GuiScreenEditProfile extends GuiScreen {
 		skinWidth = 80;
 		skinHeight = 130;
 		
-		int id = selectedSlot - EaglerProfile.skins.size();
+		int id = selectedSlot - Profile.skins.size();
 		
 		if(id < 0) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(EaglerProfile.skins.get(selectedSlot).glTex);
+			Minecraft.getMinecraft().renderEngine.bindTexture(Profile.skins.get(selectedSlot).glTex);
 		}else {
 			defaultOptionsTextures[id].bindTexture();
 		}
 		
-		EaglerAdapter.glEnable(EaglerAdapter.GL_TEXTURE_2D);
-		EaglerAdapter.glDisable(EaglerAdapter.GL_BLEND);
-		EaglerAdapter.glDisable(EaglerAdapter.GL_CULL_FACE);
-		EaglerAdapter.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-		EaglerAdapter.glPushMatrix();
-		EaglerAdapter.glTranslatef((float) xx, (float) (yy - 80), 100.0F);
-		EaglerAdapter.glScalef(50.0f, 50.0f, 50.0f);
-		EaglerAdapter.glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glDisable(GL11.GL_CULL_FACE);
+		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+		GL11.glPushMatrix();
+		GL11.glTranslatef((float) xx, (float) (yy - 80), 100.0F);
+		GL11.glScalef(50.0f, 50.0f, 50.0f);
+		GL11.glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
 		RenderHelper.enableStandardItemLighting();
-		EaglerAdapter.glScalef(1.0F, -1.0F, 1.0F);
-		EaglerAdapter.glTranslatef(0.0F, 1.0F, 0.0F);
-		EaglerAdapter.glRotatef(((yy - my) * -0.06f), 1.0f, 0.0f, 0.0f);
-		EaglerAdapter.glRotatef(((xx - mx) * 0.06f), 0.0f, 1.0f, 0.0f);
-		EaglerAdapter.glTranslatef(0.0F, -1.0F, 0.0F);
+		GL11.glScalef(1.0F, -1.0F, 1.0F);
+		GL11.glTranslatef(0.0F, 1.0F, 0.0F);
+		GL11.glRotatef(((yy - my) * -0.06f), 1.0f, 0.0f, 0.0f);
+		GL11.glRotatef(((xx - mx) * 0.06f), 0.0f, 1.0f, 0.0f);
+		GL11.glTranslatef(0.0F, -1.0F, 0.0F);
 		
 		if(playerModel == null) {
 			playerModel = new ModelBiped(0.0f);
-			playerModel.blockTransparentSkins = true;
 		}
 		
 		playerModel.render(0.0f, 0.0f, (float)(System.currentTimeMillis() % 100000) / 50f, ((xx - mx) * 0.06f), ((yy - my) * -0.1f), 0.0625F);
 		
-		EaglerAdapter.glPopMatrix();
-		EaglerAdapter.glEnable(EaglerAdapter.GL_BLEND);
-		EaglerAdapter.glEnable(EaglerAdapter.GL_CULL_FACE);
+		GL11.glPopMatrix();
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glEnable(GL11.GL_CULL_FACE);
 		
 	}
 	
 	public void handleMouseInput() {
 		super.handleMouseInput();
 		if(dropDownOpen) {
-			int var1 = EaglerAdapter.mouseGetEventDWheel();
+			int var1 = Mouse.getEventDWheel();
 			if(var1 < 0) {
 				scrollPos += 3;
 			}
@@ -236,34 +215,15 @@ public class GuiScreenEditProfile extends GuiScreen {
 			if(scrollPos < 0) {
 				scrollPos = 0;
 			}
-			if(scrollPos > defaultOptions.length + EaglerProfile.skins.size()) {
-				scrollPos = defaultOptions.length + EaglerProfile.skins.size();
+			if(scrollPos > defaultOptions.length + Profile.skins.size()) {
+				scrollPos = defaultOptions.length + Profile.skins.size();
 			}
 		}
 	}
 	
 	private void save() {
-		EaglerProfile.username = this.username.getTextBoxText().length() == 0 ? "null" : this.username.getTextBoxText();
-		mc.session = new Session(EaglerProfile.username, "-");
-		EaglerProfile.presetSkinId = selectedSlot - EaglerProfile.skins.size();
-		if(EaglerProfile.presetSkinId < 0) {
-			EaglerProfile.presetSkinId = -1;
-			EaglerProfile.customSkinId = selectedSlot;
-		}else {
-			EaglerProfile.customSkinId = -1;
-		}
-		
-		LocalStorageManager.profileSettingsStorage.setInteger("ps", EaglerProfile.presetSkinId);
-		LocalStorageManager.profileSettingsStorage.setInteger("cs", EaglerProfile.customSkinId);
-		LocalStorageManager.profileSettingsStorage.setString("name", EaglerProfile.username);
-		
-		NBTTagCompound skins = new NBTTagCompound();
-		for(int i = 0, l = EaglerProfile.skins.size(); i < l; i++) {
-			skins.setByteArray(EaglerProfile.skins.get(i).name, EaglerProfile.skins.get(i).data);
-		}
-		LocalStorageManager.profileSettingsStorage.setCompoundTag("skins", skins);
-		
-		LocalStorageManager.saveStorageP();
+		Profile.presetSkinId = selectedSlot - Profile.skins.size();
+		Profile.saveSkin();
 	}
 	
 	protected void actionPerformed(GuiButton par1GuiButton) {
@@ -271,25 +231,13 @@ public class GuiScreenEditProfile extends GuiScreen {
 			if(par1GuiButton.id == 200) {
 				save();
 				this.mc.displayGuiScreen((GuiScreen) parent);
-			}else if(par1GuiButton.id == 2) {
-				EaglerAdapter.openFileChooser("png", "image/png");
-			}else if(par1GuiButton.id == 3) {
-				for(EaglerProfileSkin i : EaglerProfile.skins) {
-					this.mc.renderEngine.deleteTexture(i.glTex);
-				}
-				EaglerProfile.skins.clear();
-				this.dropDownOptions = defaultOptions;
-				this.selectedSlot = 0;
-				save();
 			}
 		}
 	}
 	
 	public void updateScreen() {
-		this.username.onUpdate();
-		
 		if(dropDownOpen) {
-			if(EaglerAdapter.mouseIsButtonDown(0)) {
+			if(Mouse.isButtonDown(0)) {
 				int skinX = this.width / 2 - 20;
 				int skinY = this.height / 6 + 103;
 				int skinWidth = 140;
@@ -306,45 +254,14 @@ public class GuiScreenEditProfile extends GuiScreen {
 		}else {
 			dragging = false;
 		}
-		
-		byte[] b;
-		if((b = EaglerAdapter.getFileChooserResult()) != null && b.length > 0) {
-			EaglerImage img = EaglerAdapter.loadPNG(b);
-			if(!((img.w == 64 && img.h == 32) || (img.w == 64 && img.h == 64) || (img.w == 128 && img.h == 64) || (img.w == 128 && img.h == 128))) return;
-			byte[] rawSkin = new byte[img.data.length * 4];
-			for(int i = 0; i < img.data.length; i++) {
-				int i2 = i * 4; int i3 = img.data[i];
-				rawSkin[i2] = (byte)(i3 >> 16);
-				rawSkin[i2 + 1] = (byte)(i3 >> 8);
-				rawSkin[i2 + 2] = (byte)(i3);
-				rawSkin[i2 + 3] = (byte)(i3 >> 24);
-			}
-			String name = EaglerAdapter.getFileChooserResultName();
-			if(name.length() > 32) {
-				name = name.substring(0, 32);
-			}
-			int k;
-			if((k = EaglerProfile.addSkin(name, rawSkin, false)) != -1) {
-				selectedSlot = k;
-				reconcatDD();
-				save();
-			}
-		}
 	}
 	
 	public void onGuiClosed() {
-		EaglerAdapter.enableRepeatEvents(false);
+		Keyboard.enableRepeatEvents(false);
 	}
 	
 	
 	protected void keyTyped(char par1, int par2) {
-		this.username.handleKeyboardInput(par1, par2);
-		
-		String text = username.getTextBoxText();
-		if(text.length() > 16) text = text.substring(0, 16);
-		text = text.replaceAll("[^A-Za-z0-9\\-_]", "_");
-		this.username.setTextBoxText(text);
-		
 		if(par2 == 200 && selectedSlot > 0) {
 			--selectedSlot;
 			scrollPos = selectedSlot - 2;
@@ -357,18 +274,17 @@ public class GuiScreenEditProfile extends GuiScreen {
 	
 	protected void mouseClicked(int par1, int par2, int par3) {
 		super.mouseClicked(par1, par2, par3);
-		this.username.handleMouseInput(par1, par2, par3);
 		
 		if (par3 == 0) {
 			int skinX = this.width / 2 + 140 - 40;
-			int skinY = this.height / 6 + 82;
+			int skinY = this.height / 6 + 62;
 		
 			if(par1 >= skinX && par1 < (skinX + 20) && par2 >= skinY && par2 < (skinY + 22)) {
 				dropDownOpen = !dropDownOpen;
 			}
 			
 			skinX = this.width / 2 - 20;
-			skinY = this.height / 6 + 82;
+			skinY = this.height / 6 + 62;
 			int skinWidth = 140;
 			int skinHeight = skinsHeight;
 			
