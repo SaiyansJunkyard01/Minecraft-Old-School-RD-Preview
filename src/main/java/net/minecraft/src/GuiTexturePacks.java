@@ -29,7 +29,7 @@ public class GuiTexturePacks extends GuiScreen {
 		if(var1.enabled) {
 			if(var1.id == 5) {
 				//Sys.openURL("file://" + this.fileLocation);
-				GL11.EaglerAdapterImpl2.displayFileChooser("zip", "application/zip");
+				GL11.EaglerAdapterImpl2.displayFileChooser("folder", "application/folder");
 			} else if(var1.id == 6) {
 				this.mc.renderEngine.refreshTextures();
 				this.mc.displayGuiScreen(this.guiScreen);
