@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-public class ModelWraith extends ModelBiped {
+class ModelWraith extends ModelBiped {
 	public void setRotationAngles(float var1, float var2, float var3, float var4, float var5, float var6) {
 		super.setRotationAngles(var1, var2, var3, var4, var5, var6);
 		float var7 = MathHelper.sin(this.onGround * (float)Math.PI);
