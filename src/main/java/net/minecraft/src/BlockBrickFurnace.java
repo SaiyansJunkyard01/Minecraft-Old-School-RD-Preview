@@ -1,18 +1,18 @@
 package net.minecraft.src;
 
-public class BlockFurnace extends BlockContainer {
+public class BlockBrickFurnace extends BlockContainer {
 	private Random furnaceRand = new Random();
 	private final boolean isActive;
-	private static boolean keepFurnaceInventory = false;
+	private static boolean keepFurnaceInventory = true;
 
-	protected BlockFurnace(int var1, boolean var2) {
+	protected BlockBrickFurnace(int var1, boolean var2) {
 		super(var1, Material.rock);
 		this.isActive = var2;
 		this.blockIndexInTexture = 45;
 	}
 
 	public int idDropped(int var1, Random var2) {
-		return Block.stoneOvenIdle.blockID;
+		return Block.brickOvenIdle.blockID;
 	}
 
 	public void onBlockAdded(World var1, int var2, int var3, int var4) {
@@ -107,7 +107,7 @@ public class BlockFurnace extends BlockContainer {
 			var1.setBlockWithNotify(var2, var3, var4, Block.stoneOvenIdle.blockID);
 		}
 
-		keepFurnaceInventory = false;
+		keepFurnaceInventory = true;
 		var1.setBlockMetadataWithNotify(var2, var3, var4, var5);
 		var6.func_31004_j();
 		var1.setBlockTileEntity(var2, var3, var4, var6);
