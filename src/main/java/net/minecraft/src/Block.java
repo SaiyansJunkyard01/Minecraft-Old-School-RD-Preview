@@ -117,6 +117,8 @@ public class Block {
 	public static final Block lockedChest = (new BlockLockedChest(95)).setHardness(0.0F).setLightValue(1.0F).setStepSound(soundWoodFootstep).setBlockName("lockedchest").setTickOnLoad(true).disableNeighborNotifyOnMetadataChange();
 	public static final Block trapdoor = (new BlockTrapDoor(96, Material.wood)).setHardness(3.0F).setStepSound(soundWoodFootstep).setBlockName("trapdoor").disableStats().disableNeighborNotifyOnMetadataChange();
 	public static final Block test = (new BlockTest(98, 1)).setHardness(1.5F).setResistance(10.0F).setStepSound(soundStoneFootstep).setBlockName("test");
+	public static final Block stoneOvenIdle = (new BlockFurnace(99, false)).setHardness(3.5F).setStepSound(soundStoneFootstep).setBlockName("brickfurnace").disableNeighborNotifyOnMetadataChange();
+	public static final Block stoneOvenActive = (new BlockFurnace(100, true)).setHardness(3.5F).setStepSound(soundStoneFootstep).setLightValue(14.0F / 16.0F).setBlockName("brickfurnace").disableNeighborNotifyOnMetadataChange();
 	public int blockIndexInTexture;
 	public final int blockID;
 	protected float blockHardness;
