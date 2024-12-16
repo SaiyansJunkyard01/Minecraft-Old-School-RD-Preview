@@ -1,2 +1,2 @@
 #!/bin/sh
-java -cp "desktopRuntime/MakeOfflineDownload.jar:desktopRuntime/CompileEPK.jar" net.lax1dude.eaglercraft.v1_8.buildtools.workspace.MakeOfflineDownload "javascript/OfflineDownloadTemplate.txt" "javascript/classes.js" "javascript/assets.epk" "javascript/EaglercraftX_1.8_Offline_en_US.html" "javascript/EaglercraftX_1.8_Offline_International.html" "javascript/lang"
+java -cp "./MakeOfflineDownload.jar:./CompileEPK.jar" net.lax1dude.eaglercraft.v1_8.buildtools.workspace.MakeOfflineDownload "web/OfflineDownloadTemplate.txt" "web/app.js" "web/resources.mc" "offline_download/Minecraft_Old-School_RD_Portable_US.html" "offline_download/Minecraft_Old-School_RD_Portable_Intern.html" "web/lang"
