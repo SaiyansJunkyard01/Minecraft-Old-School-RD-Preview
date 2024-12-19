@@ -10,8 +10,6 @@ import java.util.Random;
 
 import net.PeytonPlayz585.opengl.GL11;
 import net.PeytonPlayz585.textures.TextureLocation;
-import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.util.ResourceLocation;
 
 public class GuiMainMenu extends GuiScreen {
     
@@ -60,7 +58,6 @@ public class GuiMainMenu extends GuiScreen {
 
     public GuiMainMenu() {
         splashText = splashTexts[rand.nextInt(splashTexts.length)];
-        playMenuMusic();
     }
 
     public void updateScreen() {
@@ -148,8 +145,7 @@ public class GuiMainMenu extends GuiScreen {
         super.drawScreen(var1, var2, var3);
     }
     
-    private void playMenuMusic() {
-        ResourceLocation musicLocation = new ResourceLocation("/mmusic/mainmenu.ogg");
-        this.mc.getSoundHandler().playSound(PositionedSoundRecord.create(musicLocation));
+    protected String getLivingSound() {
+		return "mmusic.mainmenu";
     }
 }
