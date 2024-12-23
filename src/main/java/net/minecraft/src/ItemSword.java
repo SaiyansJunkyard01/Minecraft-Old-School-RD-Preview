@@ -27,13 +27,6 @@ public class ItemSword extends Item {
 	public int getDamageVsEntity(Entity var1) {
 		return this.weaponDamage;
 	}
-	
-	public ItemStack onItemLeftClick(ItemStack var1, World var2, EntityPlayer var3) {
-		if(var3.fishEntity != null) {
-			var3.swingItem();
-		} else {
-			var2.playSoundAtEntity(var3, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-			}
 
 	public boolean isFull3D() {
 		return true;
